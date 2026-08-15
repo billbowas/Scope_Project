@@ -1,0 +1,384 @@
+/* ==========================================================================
+   Scope — Design Tokens
+   --------------------------------------------------------------------------
+   Single source of truth for every colour, font, size, space, radius, shadow
+   and chart dimension in the application.
+
+   RULE: no raw hex codes and no raw pixel values anywhere else in the
+   codebase. Templates and component CSS reference these variables only.
+
+   Derived from:
+     docs/mockups/today.png
+     docs/mockups/workload.png
+     docs/mockups/runway.png
+
+   ⚠ COLOUR VALUES ARE UNVERIFIED. They were read by eye from screenshots and
+   are approximations. Before building any screen, work through the
+   VERIFICATION CHECKLIST at the bottom of this file and replace every value
+   marked [V]. This is a one-time, mechanical task. Do it once here and no
+   other file in the project ever needs a colour again.
+   ========================================================================== */
+
+:root {
+
+  /* =======================================================================
+     1. TYPOGRAPHY
+     Two families. Display serif carries the visual character — page titles,
+     hero numbers, stat values, card headings. UI sans for everything else.
+     ======================================================================= */
+
+  --font-display: "Instrument Serif", "Spectral", Georgia, serif;   /* [V] */
+  --font-ui: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+
+  /* Display scale (serif) */
+  --text-hero: 3.75rem;        /* "1 due tomorrow" — Today */
+  --text-page-title: 3.25rem;  /* "Workload", "Runway" */
+  --text-stat-lg: 2.25rem;     /* "Week 8", "18%", "15 days" */
+  --text-stat-md: 1.5rem;      /* "Corporate Finance" in a stat card */
+  --text-card-title: 1.1875rem;/* "Next 48 hours", "Big rocks" */
+
+  /* UI scale (sans) */
+  --text-subtitle: 1.0625rem;  /* "Where the pressure builds." */
+  --text-body: 0.9375rem;      /* assignment titles, card copy */
+  --text-small: 0.8125rem;     /* course names, "3 items", "in 15 days" */
+  --text-micro: 0.6875rem;     /* chart axis numbers, calendar dates */
+  --text-label: 0.6875rem;     /* "COURSES", "HEAT MAP", "TODAY" */
+
+  --weight-regular: 400;
+  --weight-medium: 500;
+  --weight-semibold: 600;
+
+  --leading-tight: 1.1;        /* hero and page titles */
+  --leading-snug: 1.35;        /* card titles, stat values */
+  --leading-normal: 1.5;       /* body */
+  --leading-relaxed: 1.65;     /* multi-line insight copy */
+
+  --tracking-label: 0.09em;    /* uppercase labels ONLY */
+  --tracking-tight: -0.015em;  /* large display text */
+  --tracking-normal: 0;
+
+
+  /* =======================================================================
+     2. SURFACES
+     Today runs warm (cream). Workload runs cooler and cleaner. Runway sits
+     between the two. This difference is INTENTIONAL — do not unify it.
+     ======================================================================= */
+
+  --surface-today: #faf7f2;         /* [V] Today page background */
+  --surface-workload: #fbfaf8;      /* [V] Workload page background */
+  --surface-runway: #faf8f5;        /* [V] Runway page background */
+  --surface-sidebar: #f8f5f0;       /* [V] */
+  --surface-card: #ffffff;
+  --surface-inset: #fdf3e9;         /* [V] tinted panel inside "Start tonight" */
+  --surface-badge: #fdf1e6;         /* [V] date badges in "Ahead" */
+  --surface-hover: #f3efe8;         /* [V] */
+  --surface-nav-active: #fdeee2;    /* [V] active sidebar item background */
+  --surface-avatar: #eeeae4;        /* [V] the "A" square, bottom left */
+  --surface-icon-badge: #f5f1ea;    /* [V] circular icon holder in stat cards */
+  --surface-pill-neutral: #f2efe9;  /* [V] the "Avg 25" pill on the chart */
+
+
+  /* =======================================================================
+     3. TEXT
+     Headings are a deep navy. Body is a warm near-black, never pure black.
+     ======================================================================= */
+
+  --text-heading: #16213e;      /* [V] serif titles, stat values, card titles */
+  --text-primary: #2d2a26;      /* [V] assignment titles, body copy */
+  --text-secondary: #6d675f;    /* [V] course names, "3 of 16 weeks", captions */
+  --text-muted: #9b948b;        /* [V] axis labels, calendar weekday letters */
+  --text-on-accent: #ffffff;
+  --text-hero-number: #b8451f;  /* [V] the rust "1" in "1 due tomorrow" */
+
+
+  /* =======================================================================
+     4. BRAND — ember orange
+     Logo dot, active nav, section labels (TODAY / TOMORROW), the "Heavy day"
+     chip, peak-value emphasis, "in 15 days" countdowns, focus rings, and the
+     open-dropdown border.
+     ======================================================================= */
+
+  --brand: #e0521f;             /* [V] */
+  --brand-hover: #c4451a;       /* [V] */
+  --brand-subtle: #fdeadd;      /* [V] chip and pill backgrounds */
+  --brand-border: #f5d2ba;      /* [V] */
+  --brand-tint-faint: #fdf5ee;  /* [V] crunch-week bands, peak-column backdrop */
+
+
+  /* =======================================================================
+     5. ACCENT — plum
+     A second accent, distinct from brand orange, used only on Runway:
+     the term-progress bar, the today marker line and dot, the pace
+     sparkline, the calendar's today circle, the intensity-chart marker.
+     ======================================================================= */
+
+  --accent-plum: #4a2d5e;          /* [V] */
+  --accent-plum-soft: #6b4d80;     /* [V] sparkline stroke */
+  --accent-plum-subtle: #ece6f1;   /* [V] */
+
+
+  /* =======================================================================
+     6. INTERACTIVE
+     Inline text actions are TEAL, not orange — "Plan early →",
+     "Build your plan →", "View all", "See all". Orange is reserved for
+     brand and emphasis. Keeping these separate matters: if links are orange
+     they compete with the countdowns and section labels.
+     ======================================================================= */
+
+  --link: #2e7d9c;              /* [V] */
+  --link-hover: #24647d;        /* [V] */
+  --focus-ring: var(--brand);
+  --focus-ring-width: 2px;
+
+
+  /* =======================================================================
+     7. COURSE PALETTE
+     Assigned in order, overridable by the user. Eight entries so an
+     eight-course term never repeats. The first three appear in the mockups.
+     Each course's resolved hex is stored in the database, so a user's chosen
+     colour survives any future change to this palette.
+     ======================================================================= */
+
+  --course-1: #2e7d9c;   /* [V] teal      — Corporate Finance */
+  --course-2: #6d8f4d;   /* [V] olive     — Microeconomics */
+  --course-3: #e0622c;   /* [V] orange    — Statistics */
+  --course-4: #7d5ba6;   /* purple */
+  --course-5: #c2913c;   /* amber */
+  --course-6: #3f7a6a;   /* deep green */
+  --course-7: #b0526a;   /* rose */
+  --course-8: #45607d;   /* slate blue */
+
+  --course-tint-opacity: 0.14;   /* course colour used as a background fill */
+
+
+  /* =======================================================================
+     8. STATUS
+     ======================================================================= */
+
+  --status-attention: #d4491f;    /* [V] the Watch card's warning triangle */
+  --status-positive: #3f7a6a;     /* [V] "On pace", open windows */
+  --status-neutral: var(--text-secondary);
+
+
+  /* =======================================================================
+     9. MAGNITUDE DOTS
+     The 1–3 dot rating beside every assignment. Filled dots are brand
+     orange; unfilled are a hairline ring, never a grey fill.
+     ======================================================================= */
+
+  --dot-filled: var(--brand);
+  --dot-empty-border: #ddd6cc;    /* [V] */
+  --dot-size: 7px;
+  --dot-gap: 4px;
+  --dot-empty-border-width: 1.5px;
+
+
+  /* =======================================================================
+     10. CHARTS
+     All charts are hand-written SVG — no charting library. These tokens keep
+     them consistent with the rest of the interface.
+     ======================================================================= */
+
+  --chart-axis-line: #e2dcd3;        /* [V] */
+  --chart-gridline: #eee9e1;         /* [V] */
+  --chart-average-line: #8a837a;     /* [V] the dashed "Avg 25" rule */
+  --chart-average-dash: 4 4;         /* SVG stroke-dasharray */
+  --chart-peak-backdrop: var(--brand-tint-faint);
+  --chart-bar-radius: 3px;
+  --chart-bar-gap: 0.38;             /* fraction of each slot left as gap */
+  --chart-label-offset: 8px;         /* gap between a bar and its value */
+
+  /* Runway swimlane dots, radius by magnitude */
+  --swimlane-dot-1: 3.5px;
+  --swimlane-dot-2: 6.5px;
+  --swimlane-dot-3: 10px;
+  --swimlane-suggested-stroke: 1.5px;   /* hollow "suggested start" ring */
+  --swimlane-row-height: 52px;
+  --swimlane-divider: #efeae2;          /* [V] */
+
+  /* Today marker (Runway) */
+  --today-marker-line: var(--accent-plum);
+  --today-marker-width: 1.5px;
+  --today-marker-dot: 11px;
+
+  /* Progress bar (term progress) */
+  --progress-track: #e8e2da;         /* [V] */
+  --progress-fill: var(--accent-plum);
+  --progress-height: 5px;
+
+
+  /* =======================================================================
+     11. HEAT MAP RAMP
+     Low to high intensity. Must run cream → deep orange with even perceptual
+     steps; if two adjacent steps are indistinguishable the strip reads as
+     noise. Verify against docs/mockups/runway.png.
+     ======================================================================= */
+
+  --heat-0: #fbf7f1;   /* [V] empty */
+  --heat-1: #fceedf;   /* [V] */
+  --heat-2: #f9dcc2;   /* [V] */
+  --heat-3: #f4bf98;   /* [V] */
+  --heat-4: #ec9963;   /* [V] */
+  --heat-5: #e0692c;   /* [V] */
+  --heat-6: #c94d18;   /* [V] highest */
+
+  --heat-cell-width: 9px;
+  --heat-cell-height: 16px;
+  --heat-cell-gap: 2px;
+  --heat-cell-radius: 1px;
+
+
+  /* =======================================================================
+     12. SPACING — 4px base scale
+     ======================================================================= */
+
+  --space-1: 0.25rem;    /* 4px  */
+  --space-2: 0.5rem;     /* 8px  */
+  --space-3: 0.75rem;    /* 12px */
+  --space-4: 1rem;       /* 16px */
+  --space-5: 1.25rem;    /* 20px */
+  --space-6: 1.5rem;     /* 24px — standard card padding */
+  --space-8: 2rem;       /* 32px */
+  --space-10: 2.5rem;    /* 40px */
+  --space-12: 3rem;      /* 48px */
+  --space-16: 4rem;      /* 64px */
+
+  --card-padding: var(--space-6);
+  --card-gap: var(--space-5);
+  --page-padding-x: var(--space-10);
+  --page-padding-y: var(--space-8);
+  --sidebar-padding: var(--space-5);
+
+
+  /* =======================================================================
+     13. RADIUS
+     ======================================================================= */
+
+  --radius-xs: 3px;      /* legend swatches */
+  --radius-sm: 7px;      /* chips, date badges, small buttons */
+  --radius-md: 10px;     /* inputs, dropdowns, segmented controls */
+  --radius-lg: 14px;     /* cards */
+  --radius-full: 999px;  /* pills, avatars, today circle */
+
+
+  /* =======================================================================
+     14. BORDERS AND SHADOWS
+     This design leans on hairline borders, not shadows. Shadows appear only
+     on floating elements — the open course dropdown, the raised segment of
+     the Load/Items control.
+     ======================================================================= */
+
+  --border-color: #ece7df;          /* [V] cards, dividers */
+  --border-color-strong: #ddd6cc;   /* [V] inputs, buttons, controls */
+  --border-hairline: 1px solid var(--border-color);
+  --border-strong: 1px solid var(--border-color-strong);
+  --border-brand: 1px solid var(--brand);   /* open dropdown */
+
+  --shadow-none: none;
+  --shadow-raised: 0 1px 2px rgba(30, 25, 20, 0.06);   /* active segment */
+  --shadow-dropdown: 0 8px 24px rgba(30, 25, 20, 0.10);
+  --shadow-card-hover: 0 2px 8px rgba(30, 25, 20, 0.05);
+
+
+  /* =======================================================================
+     15. LAYOUT
+     ======================================================================= */
+
+  --sidebar-width: 250px;
+  --content-max-width: 1320px;
+  --today-col-left: 1.45fr;    /* "Next 48 hours" column */
+  --today-col-right: 1fr;      /* Ahead / Start tonight / Tomorrow column */
+  --stat-strip-columns: 4;     /* Workload stat strip */
+  --runway-stat-columns: 3;    /* Runway stat cards */
+
+
+  /* =======================================================================
+     16. MOTION
+     Restrained. Nothing bounces, nothing slides in.
+     ======================================================================= */
+
+  --transition-fast: 120ms ease;
+  --transition-base: 180ms ease;
+}
+
+
+/* ==========================================================================
+   VERIFICATION CHECKLIST
+
+   Every value tagged [V] above is an approximation read by eye from a
+   screenshot. Correct them once, here, before any screen is built.
+
+   HOW:
+     macOS — open Digital Colour Meter (already installed). Set it to
+     "Display native values" and change the display to sRGB, or the hex you
+     read will be wrong. Hover a pixel, press ⇧⌘C to copy the value.
+     Windows — use PowerToys Color Picker.
+
+   WORK THROUGH IN THIS ORDER. Later values depend on earlier ones looking
+   right, so do not skip around.
+
+   1. BACKGROUNDS (4 values)
+      Sample a flat, empty area — not near a card edge or a shadow.
+      --surface-today       from today.png, far right of the page
+      --surface-workload    from workload.png, empty space beside the title
+      --surface-runway      from runway.png, empty space beside the title
+      --surface-sidebar     from any mockup, blank area below "Trash"
+
+   2. TEXT (4 values)
+      Sample the THICKEST part of a letter stroke. Thin strokes and edges are
+      blended with the background and will read too light.
+      --text-heading        the "W" of "Workload"
+      --text-primary        an assignment title in Next 48 hours
+      --text-secondary      a course name beneath an assignment title
+      --text-muted          a chart axis number
+
+   3. BRAND (3 values)
+      --brand               the "Heavy day" text, or the SLATE logo dot
+      --brand-subtle        the "Heavy day" chip background
+      --surface-nav-active  the active "Today" nav item background
+      --text-hero-number    the rust "1" in "1 due tomorrow" — this is a
+                            DIFFERENT, deeper orange than --brand. Confirm
+                            whether that is intentional or a rendering
+                            artefact before locking it in.
+
+   4. COURSE COLOURS (3 values)
+      Sample from the sidebar dots, which are flat and unshaded — not from
+      the chart bars, which may carry opacity.
+      --course-1 (teal) --course-2 (olive) --course-3 (orange)
+
+   5. PLUM (1 value)
+      --accent-plum   the filled term-progress bar in runway.png
+
+   6. LINK (1 value)
+      --link          "Plan early →" in the Watch card
+
+   7. HEAT MAP (7 values)
+      Sample seven cells across the strip in runway.png, left to right,
+      picking visibly different shades. Then check: are all seven
+      distinguishable side by side? If two look identical, spread them out.
+
+   8. BORDERS (2 values)
+      Zoom in hard. These are very light and easy to sample from the wrong
+      pixel.
+      --border-color         a card's outer edge
+      --border-color-strong  the "Add course" button edge
+
+   9. FONTS
+      Confirm the display serif against the "Workload" title. Instrument
+      Serif is a close free match, but the serif carries most of this
+      design's character and is worth matching properly. Check the numerals
+      especially — "41", "18%", "15" — since serif numerals vary a lot
+      between faces.
+
+   AFTER CORRECTING:
+      Delete every [V] tag as you verify it. When no [V] remains, this file
+      is trustworthy and no other file in the project should ever contain a
+      colour, a font stack, or a raw pixel value.
+
+   OPEN QUESTION FOR THE OWNER:
+      In runway.png, the SLATE logo and its dot appear plum rather than
+      orange, unlike today.png and workload.png where both are orange. If
+      that is deliberate — a per-tab accent — it needs its own token and a
+      rule. If it is not deliberate, the mockup needs correcting. Decide
+      before building the sidebar, because it is shared by all three tabs.
+   ========================================================================== */
